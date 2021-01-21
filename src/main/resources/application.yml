@@ -1,0 +1,41 @@
+server:
+  port: 9000
+
+#服务名称
+spring:
+  datasource:
+    dynamic:
+      primary: master
+      strict: false
+      datasource:
+        master:
+          url: jdbc:mysql://10.10.10.176:3306/cos?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=Hongkong
+          username: cos_dev
+          password: 0OCjnJ2miHnO
+          driver-class-name: com.mysql.cj.jdbc.Driver
+      druid:
+        stat-view-servlet:
+          enabled: true
+          loginUsername: admin
+          loginPassword: admin
+        initial-size: 1
+        max-active: 20
+        min-idle: 1
+        # 配置获取连接等待超时的时间
+        max-wait: 60000
+        #打开PSCache，并且指定每个连接上PSCache的大小
+        pool-prepared-statements: true
+        max-pool-prepared-statement-per-connection-size: 20
+        validation-query: SELECT 'x'
+        test-on-borrow: false
+        test-on-return: false
+        test-while-idle: true
+        #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        time-between-eviction-runs-millis: 60000
+        #配置一个连接在池中最小生存的时间，单位是毫秒
+        min-evictable-idle-time-millis: 300000
+        filters: stat,wall
+        use-global-dataSource-stat: true
+        wall:
+          noneBaseStatementAllow: true
+          multiStatementAllow: true
